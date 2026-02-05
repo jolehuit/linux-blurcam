@@ -1,0 +1,26 @@
+[Unit]
+Description=Linuxcam Background Blur - Virtual webcam with AI blur
+Documentation=https://github.com/user/blurcam
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+Environment="PYTHONUNBUFFERED=1"
+
+# Main command - adjust path if installed differently
+ExecStart=%h/.local/bin/blurcam
+
+# Restart on failure
+Restart=on-failure
+RestartSec=5
+
+# Limit restart attempts (3 per 5 minutes)
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+# Don't hog CPU
+Nice=10
+
+[Install]
+WantedBy=default.target
